@@ -4,52 +4,86 @@ import { readFile } from "node:fs/promises";
   const input = await readFile("./day2/input", { encoding: "utf8" });
   //console.log(input);
   const lines = input.split("\n");
-  //console.log(lines)
-  const inputNumbers: number[][] = [];
-  let safe = 0;
+  let safep1 = 0;
+  let safep2 = 0;
   for (const line of lines) {
     //console.log(line);
     const splitLine = line.split(" ");
-    //console.log(splitLine)
-    const intArray: number[] = [];
-    for (const number of splitLine) intArray.push(parseInt(number));
-    const intArrayAscending = intArray.toSorted((a, b) => {
-      return a - b;
-    });
-    //console.log(`intArrayAsc: ${intArrayAscending}`);
-    const intArrayDescending = intArray.toSorted((a, b) => {
-      return b - a;
-    });
-    //console.log(`intArrayDesc: ${intArrayDescending}`);
-    inputNumbers.push(intArray);
-    //console.log(intArray);
-    //console.log(intArray.length);
-    let unsafe = false;
-    for (let i = 0; i + 1 < intArray.length; i++) {
-      const difference = Math.abs(intArray[i + 1] - intArray[i]);
-      /* console.log(intArray);
-      console.log(intArrayAscending);
-      console.log(intArrayDescending); */
-      // is there a cleaner way to write this?
-      if (
-        intArray.toString() != intArrayAscending.toString() &&
-        intArray.toString() != intArrayDescending.toString()
-      ) {
-        console.log(`line failed because of increasing decreasing`);
-        unsafe = true;
-        break;
+    const ogIntArray: number[] = [];
+    for (const number of splitLine) ogIntArray.push(parseInt(number));
+
+    let intArray = [...ogIntArray];
+
+    let unsafep1 = false;
+    let unsafep2 = false;
+
+    async function check(intArray: number[]) {
+      async function incdecCheck() {
+        const intArrayInc = intArray.toSorted((a, b) => {
+          return a - b;
+        });
+        const intArrayDec = intArray.toSorted((a, b) => {
+          return b - a;
+        });
+
+        const increasingCheck = intArray.toString() == intArrayInc.toString();
+        const decreasingCheck = intArray.toString() == intArrayDec.toString();
+
+        return increasingCheck || decreasingCheck;
       }
-      if (!(difference == 1 || difference == 2 || difference == 3)) {
-        console.log(
-          `line failed because of difference. difference here was ${difference}`
-        );
-        unsafe = true;
-        break;
+
+      async function diffCheck() {
+        let difference = 0;
+        for (let i = 0; i + 1 < intArray.length; i++) {
+          difference = Math.abs(intArray[i + 1] - intArray[i]);
+          /* console.log(
+            `difference of ${difference} between ${intArray[i]} and ${intArray[i + 1]}`
+          ); */
+          if (!(difference == 1 || difference == 2 || difference == 3))
+            return false;
+        }
+        return true;
+      }
+
+      const incdecPass = await incdecCheck();
+      const diffPass = await diffCheck();
+
+      return { incdecPass, diffPass };
+    }
+
+    const result = await check(intArray);
+    //console.log(result);
+
+    console.log(`diff: ${result.diffPass}`);
+    console.log(`increasing: ${result.incdecPass}`);
+    console.log(`decreasing: ${result.incdecPass}`);
+
+    console.log(`safe: ${result.diffPass && result.incdecPass}`);
+
+    if (!(result.diffPass && result.incdecPass)) {
+      unsafep1 = true;
+      unsafep2 = true;
+
+      // lets try to fix it for part 2
+      for (let i = 0; i < ogIntArray.length; i++) {
+        intArray.splice(i, 1);
+        console.log(`new array: ${intArray}`);
+        const result = await check(intArray);
+        if (result.diffPass && result.incdecPass) {
+          unsafep2 = false;
+          break;
+        }
+        intArray = [...ogIntArray];
       }
     }
-    if (!unsafe) safe++;
-    console.log(`safe: ${!unsafe} line: ${intArray}\n`);
-    unsafe = false;
+
+    if (!unsafep1) safep1++;
+    console.log(`part 1 safe: ${!unsafep1} line: ${ogIntArray}`);
+    if (!unsafep2) safep2++;
+    console.log(`part 2 safe: ${!unsafep2} line: ${ogIntArray}\n`);
+    unsafep1 = false;
+    unsafep2 = false;
   }
-  console.log(`part 1 total safe reports: ${safe}`);
+  console.log(`part 1 total safe reports: ${safep1}`);
+  console.log(`part 2 total safe reports: ${safep2}`);
 })();
