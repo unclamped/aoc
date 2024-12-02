@@ -21,10 +21,13 @@ import * as fs from 'node:fs/promises';
     // part 1
     let p1result = 0
     for (let i = 0; i < leftCol.length; i++) {
+        /* //original solution
         let bigNum = leftCol[i] > rightCol[i] ? leftCol[i] : rightCol[i]
         let smallNum = leftCol[i] < rightCol[i] ? leftCol[i] : rightCol[i]
         // console.log(bigNum - smallNum)
-        p1result += bigNum - smallNum
+        p1result += bigNum - smallNum */
+        // suggested improvement by @krypciak, thanks!
+        p1result += Math.abs(leftCol[i] - rightCol[i])
         // console.log (leftCol[i] + ' ' + rightCol[i])
     }
 
@@ -32,6 +35,8 @@ import * as fs from 'node:fs/promises';
 
     // part 2
     let p2result = 0
+    // apparently, I can improve time complexity with the map function,
+    // I need to look this up further later
     for (let i = 0; i < leftCol.length; i++) {
         let matches = 0
         for (let x = 0; x < rightCol.length; x++) {
