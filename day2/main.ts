@@ -54,11 +54,11 @@ import { readFile } from "node:fs/promises";
     const result = await check(intArray);
     //console.log(result);
 
-    console.log(`diff: ${result.diffPass}`);
-    console.log(`increasing: ${result.incdecPass}`);
-    console.log(`decreasing: ${result.incdecPass}`);
+    //console.log(`diff: ${result.diffPass}`);
+    //console.log(`increasing: ${result.incdecPass}`);
+    //console.log(`decreasing: ${result.incdecPass}`);
 
-    console.log(`safe: ${result.diffPass && result.incdecPass}`);
+    //console.log(`safe: ${result.diffPass && result.incdecPass}`);
 
     if (!(result.diffPass && result.incdecPass)) {
       unsafep1 = true;
@@ -67,7 +67,7 @@ import { readFile } from "node:fs/promises";
       // lets try to fix it for part 2
       for (let i = 0; i < ogIntArray.length; i++) {
         intArray.splice(i, 1);
-        console.log(`new array: ${intArray}`);
+        //console.log(`new array: ${intArray}`);
         const result = await check(intArray);
         if (result.diffPass && result.incdecPass) {
           unsafep2 = false;
@@ -78,9 +78,9 @@ import { readFile } from "node:fs/promises";
     }
 
     if (!unsafep1) safep1++;
-    console.log(`part 1 safe: ${!unsafep1} line: ${ogIntArray}`);
+    //console.log(`part 1 safe: ${!unsafep1} line: ${ogIntArray}`);
     if (!unsafep2) safep2++;
-    console.log(`part 2 safe: ${!unsafep2} line: ${ogIntArray}\n`);
+    //console.log(`part 2 safe: ${!unsafep2} line: ${ogIntArray}\n`);
     unsafep1 = false;
     unsafep2 = false;
   }
