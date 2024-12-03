@@ -60,7 +60,8 @@ import * as fs from "node:fs/promises";
       }
       // we shouldn't have reached this point, wtf?
       // no one's gonna read this, but I wonder if there's
-      // any edge case where this could possibly be reached      return false;
+      // any edge case where this could possibly be reached
+      return false;
     }
 
     if (await check())
