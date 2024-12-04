@@ -141,7 +141,6 @@ import { readFile } from "node:fs/promises";
             (lines[i + 1][x - 1] == "S" && lines[i - 1][x + 1] == "M"))
         ) {
           p2result++;
-          console.log(`${i + 1},${x + 1}`);
         }
       }
     }
