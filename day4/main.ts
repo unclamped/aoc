@@ -5,6 +5,7 @@ import { readFile } from "node:fs/promises";
   //console.log(input);
   const lines = input.split("\n");
   let p1result = 0;
+  let p2result = 0;
   for (let i = 0; i < lines.length; i++) {
     // lines[i] is the line
     // lines[i][x] the char
@@ -13,10 +14,11 @@ import { readFile } from "node:fs/promises";
         return lines[i][x] == "M" && lines[i][x] == "A" && lines[i][x] == "S";
       } */
 
-      if (lines[i][x] != "X") continue;
+      if (lines[i][x] != "X" && lines[i][x] != "A") continue;
 
       // to the right
       if (
+        lines[i][x] == "X" &&
         lines[x + 1] &&
         lines[x + 2] &&
         lines[x + 3] &&
@@ -28,6 +30,7 @@ import { readFile } from "node:fs/promises";
 
       // to the left
       if (
+        lines[i][x] == "X" &&
         lines[x - 1] &&
         lines[x - 2] &&
         lines[x - 3] &&
@@ -39,6 +42,7 @@ import { readFile } from "node:fs/promises";
 
       // up
       if (
+        lines[i][x] == "X" &&
         lines[i - 1] &&
         lines[i - 2] &&
         lines[i - 3] &&
@@ -50,6 +54,7 @@ import { readFile } from "node:fs/promises";
 
       // down
       if (
+        lines[i][x] == "X" &&
         lines[i + 1] &&
         lines[i + 2] &&
         lines[i + 3] &&
@@ -61,6 +66,7 @@ import { readFile } from "node:fs/promises";
 
       // up right
       if (
+        lines[i][x] == "X" &&
         lines[i - 1] &&
         lines[i - 2] &&
         lines[i - 3] &&
@@ -75,6 +81,7 @@ import { readFile } from "node:fs/promises";
 
       // up left
       if (
+        lines[i][x] == "X" &&
         lines[i - 1] &&
         lines[i - 2] &&
         lines[i - 3] &&
@@ -89,6 +96,7 @@ import { readFile } from "node:fs/promises";
 
       // down right
       if (
+        lines[i][x] == "X" &&
         lines[i + 1] &&
         lines[i + 2] &&
         lines[i + 3] &&
@@ -103,6 +111,7 @@ import { readFile } from "node:fs/promises";
 
       // down left
       if (
+        lines[i][x] == "X" &&
         lines[i + 1] &&
         lines[i + 2] &&
         lines[i + 3] &&
@@ -114,7 +123,29 @@ import { readFile } from "node:fs/promises";
         lines[i + 3][x - 3] == "S"
       )
         p1result++;
+
+      //part 2
+      if (
+        lines[i][x] == "A" &&
+        lines[i - 1] &&
+        lines[i + 1] &&
+        lines[i - 1][x - 1] &&
+        lines[i - 1][x + 1] &&
+        lines[i + 1][x - 1] &&
+        lines[i + 1][x + 1]
+      ) {
+        if (
+          ((lines[i - 1][x - 1] == "M" && lines[i + 1][x + 1] == "S") ||
+            (lines[i - 1][x - 1] == "S" && lines[i + 1][x + 1] == "M")) &&
+          ((lines[i + 1][x - 1] == "M" && lines[i - 1][x + 1] == "S") ||
+            (lines[i + 1][x - 1] == "S" && lines[i - 1][x + 1] == "M"))
+        ) {
+          p2result++;
+          console.log(`${i + 1},${x + 1}`);
+        }
+      }
     }
   }
   console.log(`part 1 total XMAS count: ${p1result}`);
+  console.log(`part 1 total X-MAS count: ${p2result}`);
 })();
