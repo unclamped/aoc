@@ -1,7 +1,7 @@
 import * as fs from "node:fs/promises";
 
 (async () => {
-  const input = await fs.readFile("./day1/input", { encoding: "utf8" });
+  const input = await fs.readFile("./2024/day1/input", { encoding: "utf8" });
   console.log(input);
   const lines = input.split("\n");
   const leftCol = [];

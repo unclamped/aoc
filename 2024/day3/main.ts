@@ -1,7 +1,7 @@
 import * as fs from "node:fs/promises";
 
 (async () => {
-  const input = await fs.readFile("./day3/input", { encoding: "utf8" });
+  const input = await fs.readFile("./2024/day3/input", { encoding: "utf8" });
 
   let p1result = 0;
   let p2result = 0;

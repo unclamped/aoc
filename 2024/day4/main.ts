@@ -1,7 +1,7 @@
 import { readFile } from "node:fs/promises";
 
 (async () => {
-  const input = await readFile("./day4/input", { encoding: "utf8" });
+  const input = await readFile("./2024/day4/input", { encoding: "utf8" });
   //console.log(input);
   const lines = input.split("\n");
   let p1result = 0;
