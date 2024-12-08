@@ -1,7 +1,7 @@
 import { readFile } from "node:fs/promises";
 
 (async () => {
-  const input = await readFile("./2024/day6/input", {
+  const input = await readFile("./2024/day6/exampleinput", {
     encoding: "utf8"
   });
   //console.log(input);
@@ -66,6 +66,8 @@ import { readFile } from "node:fs/promises";
       console.log(line);
     });
 
+    async function part2(x: number, y: number) {}
+
     // up
     if (guard.direction == 0) {
       while (y - 1 != -1) {
@@ -79,7 +81,7 @@ import { readFile } from "node:fs/promises";
         }
         if (lines[y - 1][x] == "#") {
           spottedObstacle = true;
-          console.log(`found an obstacle at x ${x + 1} y ${y + 1}`);
+          console.log(`found an obstacle at x ${x + 1} y ${y}`);
           break;
         }
         y -= 1;
@@ -97,7 +99,7 @@ import { readFile } from "node:fs/promises";
         }
         if (lines[y][x + 1] == "#") {
           spottedObstacle = true;
-          console.log(`found an obstacle at x ${x + 1} y ${y + 1}`);
+          console.log(`found an obstacle at x ${x + 2} y ${y + 1}`);
           break;
         }
         x += 1;
@@ -114,7 +116,7 @@ import { readFile } from "node:fs/promises";
         }
         if (lines[y + 1][x] == "#") {
           spottedObstacle = true;
-          console.log(`found an obstacle at x ${x + 1} y ${y + 1}`);
+          console.log(`found an obstacle at x ${x + 1} y ${y + 2}`);
           break;
         }
         y += 1;
@@ -131,7 +133,7 @@ import { readFile } from "node:fs/promises";
         }
         if (lines[y][x - 1] == "#") {
           spottedObstacle = true;
-          console.log(`found an obstacle at x ${x + 1} y ${y + 1}`);
+          console.log(`found an obstacle at x ${x} y ${y + 1}`);
           break;
         }
         x -= 1;
