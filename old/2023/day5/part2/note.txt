@@ -1,0 +1,18 @@
+i really don't think I'll be doing part 2, unless I feel particularly motivated one day to do it.
+i'm starting to lose faith in this, this is my first year doing aoc, and even though this is supposed to be fun,
+the only moments I have fun throughout the entire day where all I do is sit and do this, is when I get the answer right.
+after I got done with part 1, I didn't even find joy in it, it was more like a relaxing moment of "it's over, finally".
+
+in any case, my idea to finish it is to probably keep an array of my current seed number, and then add the elements of
+the range to it. then, once I'm done with that one, clear it and move on to the next seed number and its range.
+
+so, just as a note for future me, the diff with part 1 is that now, if the seed numbers were something like:
+10 4 66 5, then the seeds would actually be 10, 11, 12, 13, 66, 67, 68, 69, 70, 71, 72, 73, 74.
+of course, because the actual input's range is a LOT bigger, putting them all in a single array would immediately
+kill the entire electricity the entire city. so, what if, using the example I gave of:
+10 4 66 5
+I had a variable like current_seed_number, with the 10, 11, 12, 13, and once I'm actually finished with those, I move to
+the next one? so, I do all my dest number stuff for those four numbers, and then I clear it, add the ranges for 66 and 5,
+so 66, 67, 68, 69, 70, 71, 72, 73, 74, and then do the same for that and for all the rest of seed numbers?
+i don't know if I'll need even more optimization than that, but it seems like a doable solution at first. idk, I am tired,
+it's 00:20. 
